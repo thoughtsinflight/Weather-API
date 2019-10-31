@@ -7,11 +7,11 @@ $("#button").on("click", function(){
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-
+            console.log(response)
         var newCard = $("#content-div");
 
         var card = $("<div class= 'card' stylestyle='width: 18rem;'>");
-        newCard.append(card);
+        //newCard.append(card);
 
         var cardBody = $("<div class='card-body'>")
         card.append(cardBody);
@@ -30,15 +30,18 @@ $("#button").on("click", function(){
 
         newCard.append(card);
         
-        var cardImg = $("<img>");
-        cardTitle.append(cardImg);
+       
         
-        var icon = response.weather.icon;
-        cardImg.attr("src", "http://openweathermap.org/img/wn/"+"icon"+"@2x.png")
+        var icon = "https://openweathermap.org/img/wn/"+ response.weather[0].icon+"@2x.png";
+        var cardImg = $("<img>");
+        
+        cardImg.attr("src", icon);
+        console.log(cardImg)
+        cardTitle.append(cardImg);
         cardTitle.text(response.name);
         cardTemp.text("Temperature: " + Math.floor((response.main.temp - 273.15) * 9/5 + 32) + "°");
         cardHum.text("Humidity: " + response.main.humidity + "%");
         cardWind.text("Wind Speed: " + response.wind.speed + " MPH");
-        console.log(response.weather.icon);
+        console.log(response.weather[0].icon);
     })  
 })
